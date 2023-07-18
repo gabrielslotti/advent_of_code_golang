@@ -60,6 +60,7 @@ func main() {
 		total = total + value	
   	}
 
-	fmt.Println("Answer:", total, "calories.")
+	fmt.Println("#1 Amswer:", greatest_amount, "calories.")
+	fmt.Println("#2 Answer:", total, "calories.")
 }
 
