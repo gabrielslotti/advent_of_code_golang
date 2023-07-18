@@ -1,66 +1,66 @@
+// Day 1 of Advent of Code
 package main
 
 import (
-	"os"
-	"fmt"
-	"sort"
 	"bufio"
+	"fmt"
+	"os"
+	"sort"
 	"strconv"
 )
 
 func main() {
 
-    readFile, err := os.Open("input.txt")
+	readFile, err := os.Open("input.txt")
 
-    if err != nil {
-        fmt.Println(err)
-    }
-    fileScanner := bufio.NewScanner(readFile)
-    fileScanner.Split(bufio.ScanLines)
-    var fileLines []string
+	if err != nil {
+		fmt.Println(err)
+	}
+	fileScanner := bufio.NewScanner(readFile)
+	fileScanner.Split(bufio.ScanLines)
+	var fileLines []string
 
-    for fileScanner.Scan() {
-        fileLines = append(fileLines, fileScanner.Text())
-    }
+	for fileScanner.Scan() {
+		fileLines = append(fileLines, fileScanner.Text())
+	}
 
-    readFile.Close()
+	readFile.Close()
 
-	var greatest_amount int
-	var past_elf int
-	var current_elf int
-	var amount_slice []int
+	var greatestAmount int
+	var pastElf int
+	var currentElf int
+	var amountSlice []int
 
-    for _, line := range fileLines {
+	for _, line := range fileLines {
 		switch line {
-			case "":
-				if current_elf > past_elf && current_elf > greatest_amount {
-					greatest_amount = current_elf
-				}
+		case "":
+			if currentElf > pastElf && currentElf > greatestAmount {
+				greatestAmount = currentElf
+			}
 
-				amount_slice = append(amount_slice, current_elf)
+			amountSlice = append(amountSlice, currentElf)
 
-				past_elf = current_elf
-				current_elf = 0
-				continue
-			default:
-				calories, err := strconv.Atoi(line)
-				if err != nil {
-					panic(err)
-				}
+			pastElf = currentElf
+			currentElf = 0
+			continue
+		default:
+			calories, err := strconv.Atoi(line)
+			if err != nil {
+				panic(err)
+			}
 
-				current_elf = current_elf + calories
+			currentElf = currentElf + calories
 		}
-    }
+	}
 
-	sort.Ints(amount_slice)
-	top3 := amount_slice[len(amount_slice)-3:]
+	sort.Ints(amountSlice)
+	top3 := amountSlice[len(amountSlice)-3:]
 
 	var total int
 	for _, value := range top3 {
-		total = total + value	
-  	}
+		total = total + value
+	}
 
-	fmt.Println("#1 Amswer:", greatest_amount, "calories.")
+	fmt.Println("#1 Amswer:", greatestAmount, "calories.")
 	fmt.Println("#2 Answer:", total, "calories.")
 }
-
